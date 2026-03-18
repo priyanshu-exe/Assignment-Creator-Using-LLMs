@@ -4,13 +4,18 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useAssignmentStore } from '@/store/assignmentStore';
 import { fetchAssignments, deleteAssignment } from '@/lib/api';
-import { format } from 'date-fns';
 
 export default function DashboardPage() {
   const { assignments, setAssignments, removeAssignment } = useAssignmentStore();
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
   const [toast, setToast] = useState<{ type: string; message: string } | null>(null);
+
+  function formatDate(value: string | Date) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '-';
+    return new Intl.DateTimeFormat('en-GB').format(date);
+  }
 
   useEffect(() => {
     loadAssignments();
@@ -148,14 +153,14 @@ export default function DashboardPage() {
                   <line x1="8" y1="2" x2="8" y2="6" />
                   <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
-                Assigned on: {format(new Date(assignment.createdAt), 'dd-MM-yyyy')}
+                Assigned on: {formatDate(assignment.createdAt)}
               </div>
               <div className="assignment-card-date">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12,6 12,12 16,14" />
                 </svg>
-                Due: {format(new Date(assignment.dueDate), 'dd-MM-yyyy')}
+                Due: {formatDate(assignment.dueDate)}
               </div>
             </div>
 
