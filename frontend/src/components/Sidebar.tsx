@@ -80,6 +80,18 @@ export default function Sidebar() {
         </div>
 
         <nav className="sidebar-nav">
+          <Link
+            href="/create"
+            className="sidebar-create-btn"
+            onClick={() => sidebarOpen && toggleSidebar()}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2l1.9 5.1L19 9l-5.1 1.9L12 16l-1.9-5.1L5 9l5.1-1.9L12 2z" />
+              <path d="M18.5 3l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z" />
+            </svg>
+            Create Assignment
+          </Link>
+
           {navItems.map((item) => {
             const isActive =
               item.label === 'Assignments'
